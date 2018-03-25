@@ -1,0 +1,26 @@
+library(lpSolveAPI)
+
+company = make.lp(3,2)
+
+set.column(company, 1, c(-0.2, 1, 1))
+set.column(company, 2, c(0.8, 0, 2))
+set.constr.type(company, c("<=","<=","<="))
+set.rhs(company, c(0, 100, 120))
+
+
+set.objfn(company, c(20,50))
+
+
+lp.control(company, sense='max')
+# If we want to take a look at our model, we can just type:
+company
+# Now we are ready to solve our model:
+solve(company)
+
+get.objective(company)
+get.variables(company)
+#Plot a graph
+plot(company)
+
+#Sensitivity
+get.sensitivity.rhs(company)
