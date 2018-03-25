@@ -1,0 +1,24 @@
+library(lpSolveAPI)
+
+advertise = make.lp(3,2)
+
+set.column(advertise, 1, c(3, 1, -1))
+set.column(advertise, 2, c(60, 0, 2))
+set.constr.type(advertise, c("<=","<=","<="))
+set.rhs(advertise, c(2000, 400, 0))
+
+set.objfn(advertise, c(1, 25))
+
+lp.control(advertise,sense='max')
+# If we want to take a look at our model, we can just type:
+advertise
+# Now we are ready to solve our model:
+solve(advertise)
+
+get.objective(advertise)
+get.variables(advertise)
+#Plot a graph
+plot(advertise)
+
+#Sensitivity
+get.sensitivity.rhs(advertise)
