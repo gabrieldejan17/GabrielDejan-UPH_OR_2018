@@ -1,0 +1,24 @@
+library(lpSolveAPI)
+
+store = make.lp(3,2)
+
+set.column(store, 1, c(0.2, 1, 0))
+set.column(store, 2, c(0.4, 0, 1))
+set.constr.type(store, c("<=","<=","<="))
+set.rhs(store, c(60, 200, 120))
+
+set.objfn(store, c(1, 1.35))
+
+lp.control(store,sense='max')
+# If we want to take a look at our model, we can just type:
+store
+# Now we are ready to solve our model:
+solve(store)
+
+get.objective(store)
+get.variables(store)
+#Plot a graph
+plot(store)
+
+#Sensitivity
+get.sensitivity.rhs(store)
