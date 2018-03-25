@@ -1,0 +1,24 @@
+library(lpSolveAPI)
+
+alumco = make.lp(3,2)
+
+set.column(alumco, 1, c(1/800, 1, 0 ))
+set.column(alumco, 2, c(1/600, 0, 1))
+set.constr.type(alumco, c("<=","<=","<="))
+set.rhs(alumco, c(1, 550, 580))
+
+set.objfn(alumco, c(40,35))
+
+lp.control(alumco, sense='max')
+# If we want to take a look at our model, we can just type:
+alumco
+# Now we are ready to solve our model:
+solve(alumco)
+
+get.objective(alumco)
+get.variables(alumco)
+#Plot a graph
+plot(alumco)
+
+#Sensitivity
+get.sensitivity.rhs(alumco)
